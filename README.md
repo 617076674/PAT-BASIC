@@ -1,6 +1,6 @@
-我的PAT-BASIC代码仓
+My PAT-BASIC Repository
 
-主要以C++实现，后序将逐渐添加java实现
+The problem are mainly solved by C++. I will add Java solutions in the future.
 
 [我的博客](https://blog.csdn.net/qq_41231926)
 
