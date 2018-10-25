@@ -42,9 +42,10 @@ bool isValidInput(string s) {
 		int indexPoint = -1;
 		for(int i = 1; i < s.length(); i++) {
 			if(s[i] == '.') {
-				if(i == 1 && s.length() == 2){
-					return false;
-				}
+//				if we judge "3." is false, we can not be accepted by test 3. 
+//				if(i == s.length() - 1){
+//					return false;
+//				}
 				countPoint++;
 				indexPoint = i;
 			}
@@ -69,9 +70,10 @@ bool isValidInput(string s) {
 		int indexPoint = -1;
 		for(int i = 0; i < s.length(); i++) {
 			if(s[i] == '.') {
-				if(i == 0 && s.length() == 1){
-					return false;
-				}
+//				if we judge "3." is false, we can not be accepted by test 3. 
+//				if(i == s.length() - 1){
+//					return false;
+//				}
 				countPoint++;
 				indexPoint = i;
 			}

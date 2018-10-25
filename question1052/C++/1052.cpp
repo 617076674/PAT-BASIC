@@ -4,6 +4,8 @@
 
 using namespace std;
 
+void generateArray(vector<string>& hands, string s); 
+
 int main(){
 	
 	string hand;
@@ -18,43 +20,9 @@ int main(){
 	vector<string> eyes;
 	vector<string> mouths;
 	
-	string tempString;
-	for(int i = 0; i < hand.length(); i++){
-		if(hand[i] == '['){
-			tempString = "";
-		}else if(hand[i] == ']'){
-			hands.push_back(tempString);
-			tempString = "";
-		}else{
-			tempString += hand[i];
-		}
-	}
-//	
-//	for(int i = 0; i < hands.size(); i++){
-//		cout << hands[i] << endl;
-//	}
-	
-	for(int i = 0; i < eye.length(); i++){
-		if(eye[i] == '['){
-			tempString = "";
-		}else if(eye[i] == ']'){
-			eyes.push_back(tempString);
-			tempString = "";
-		}else{
-			tempString += eye[i];
-		}
-	}
-	
-	for(int i = 0; i < mouth.length(); i++){
-		if(mouth[i] == '['){
-			tempString = "";
-		}else if(mouth[i] == ']'){
-			mouths.push_back(tempString);
-			tempString = "";
-		}else{
-			tempString += mouth[i];
-		}
-	}
+	generateArray(hands, hand);
+	generateArray(eyes, eye);
+	generateArray(mouths, mouth);
 	
 	int count;
 	cin >> count;
@@ -75,5 +43,19 @@ int main(){
 				cout << hands[leftHand - 1] << "(" << eyes[leftEye - 1] << mouths[midMouth - 1] << 
 				eyes[rightEye - 1] << ")" << hands[rightHand - 1] << endl;
 			}
+	}
+}
+
+void generateArray(vector<string>& array, string s){
+	string tempString;
+	for(int i = 0; i < s.length(); i++){
+		if(s[i] == '['){
+			tempString = "";
+		}else if(s[i] == ']'){
+			array.push_back(tempString);
+			tempString = "";
+		}else{
+			tempString += s[i];
+		}
 	}
 }
