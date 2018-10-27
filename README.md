@@ -1,6 +1,6 @@
 My PAT-BASIC Repository
 
-The problem are mainly solved by C++. I will add Java solutions in the future.
+These problems are mainly solved by C++. I will add Java solutions in the future.
 
 If you find any problems in my codes or have more solutions about the questions in LeetCode, please contact me by email.
 
