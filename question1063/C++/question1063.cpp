@@ -7,10 +7,10 @@ int main(){
 	int N;
 	cin >> N;
 	
-	long max = 0;
-	long tempSquare;
-	long tempNum1;
-	long tempNum2;
+	int max = 0;
+	int tempSquare;
+	int tempNum1;
+	int tempNum2;
 	
 	for(int i = 0; i < N; i++){
 		cin >> tempNum1 >> tempNum2;

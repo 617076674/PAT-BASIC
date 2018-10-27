@@ -5,9 +5,9 @@
 using namespace std;
 
 int calculateIndexSlide(string s);
-long calculateNumerator(string s);
-long calculateDenominator(string s);
-long gcd(long num1, long num2);
+int calculateNumerator(string s);
+int calculateDenominator(string s);
+int gcd(int num1, int num2);
 
 int main(){
 	
@@ -15,28 +15,28 @@ int main(){
 	string input2;
 	cin >> input1 >> input2;
 	
-	long N1 = calculateNumerator(input1);
-	long M1 = calculateDenominator(input1);
-	long N2 = calculateNumerator(input2);
-	long M2 = calculateDenominator(input2);
+	int N1 = calculateNumerator(input1);
+	int M1 = calculateDenominator(input1);
+	int N2 = calculateNumerator(input2);
+	int M2 = calculateDenominator(input2);
 	
-	long K;
+	int K;
 	cin >> K;
 	
-	long minNumerator = K * M2 * N1;
-	long maxNumerator = K * M1 * N2;
-	if(minNumerator > maxNumerator){
-		long temp = minNumerator;
-		minNumerator = maxNumerator;
-		maxNumerator = temp;
+	double min = 1.0 * N1 / M1;
+	double max = 1.0 * N2 / M2;
+	if(min > max){
+		double temp = min;
+		min = max;
+		max = temp;
 	}
-	
+
 	vector<int> numerators;
-	for(long i = 1;; i++){
-		if(M1 * M2 * i >= maxNumerator){
+	for(int i = 1;; i++){
+		if(1.0 * i / K >= max){
 			break;
 		}
-		if(gcd(K, i) == 1 && M1 * M2 * i > minNumerator){
+		if(gcd(K, i) == 1 && 1.0 * i / K > min){
 			numerators.push_back(i);
 		}
 	}
@@ -60,25 +60,26 @@ int calculateIndexSlide(string s){
 	return -1;
 }
 
-long calculateNumerator(string s){
+int calculateNumerator(string s){
 	int indexSlide = calculateIndexSlide(s);
-	long N = 0;
+	int N = 0;
 	for(int i = 0; i < indexSlide; i++){
 		N = N * 10 + (s[i] - '0');
 	}
 	return N;
 }
 
-long calculateDenominator(string s){
+int calculateDenominator(string s){
 	int indexSlide = calculateIndexSlide(s);
-	long M = 0;
+	int M = 0;
 	for(int i = indexSlide + 1; i < s.length(); i++){
 		M = M * 10 + (s[i] - '0');
 	}
 	return M;
 }
 
-long gcd(long num1, long num2){
+int gcd(int num1, int num2){
+
 	if(num2 == 0){
 		return num1;
 	}

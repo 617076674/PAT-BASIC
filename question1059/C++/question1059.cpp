@@ -37,18 +37,13 @@ int main() {
 				printf("%04d: ", tempNum);
 				cout << prizes[tempNum] << endl;
 				flags[tempNum] = true;
-			}else{
+			} else {
 				printf("%04d: ", tempNum);
 				cout << "Are you kidding?" << endl;
 			}
 		} else {
-			if(prizes[tempNum].length() != 0) {
-				printf("%04d: ", tempNum);
-				cout << "Checked" << endl;
-			}else{
-				printf("%04d: ", tempNum);
-				cout << "Are you kidding?" << endl;
-			}
+			printf("%04d: ", tempNum);
+			cout << "Checked" << endl;
 		}
 	}
 

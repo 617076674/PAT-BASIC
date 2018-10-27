@@ -28,11 +28,15 @@ int main() {
 	for(int i = 0; i < M; i++) {
 		cin >> tempScore >> tempOptions >> tempTrueOptions;
 		tempQuestion.trueOptionsAndAnswer = "";
+		//use stringstream in head file <sstream> to merge int and string
 		stringstream ss(tempQuestion.trueOptionsAndAnswer);
 		ss << tempTrueOptions;
 		tempQuestion.trueOptionsAndAnswer = ss.str();
 		tempQuestion.trueOptionsAndAnswer += " ";
 		for(int i = 0; i < tempTrueOptions; i++) {
+			//using scanf to get char tempAnswer can not skip the space
+//			scanf("%c", &tempAnswer);
+			//using cin to get char tempAnswer can skip the space
 			cin >> tempAnswer;
 			tempQuestion.trueOptionsAndAnswer += tempAnswer;
 			if(i != tempTrueOptions - 1) {
@@ -40,7 +44,6 @@ int main() {
 			}
 		}
 		tempQuestion.score = tempScore;
-
 		questions.push_back(tempQuestion);
 	}
 
@@ -59,11 +62,8 @@ int main() {
 	}
 
 	for(int i = 0; i < N; i++) {
-
 		getline(cin, student);
-
 		int index = 0;
-
 		for(int j = 0; j < student.length(); j++) {
 			if(student[j] == '(') {
 				j++;
