@@ -36,9 +36,7 @@ int main(){
 				studentTotalScore += tempStudentScore;
 			}
 		}
-//		cout << "studentMaxScore = " << studentMaxScore << " studentMinScore = " << studentMinScore << endl;
 		studentScore = studentTotalScore - studentMaxScore - studentMinScore;
-//		printf("teacherScore = %d, studentScore = %d, countValid = %d\n", teacherScore, studentScore, countValid);
 		score = (teacherScore + studentScore * 1.0 / (countValid - 2)) * 0.5;
 		finalScore = (int) score;
 		if(score - finalScore >= 0.5){

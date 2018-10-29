@@ -8,30 +8,20 @@ int changeToNum(string s);
 int main(){
 	int N;
 	cin >> N;
-	
 	string input[N];
-	
 	string tempString;
-	
 	for(int i = 0; i < N; i++){
 		cin >> tempString;
 		input[i] = tempString;
 	}
-	
-//	for(int i = 0; i < N; i++){
-//		cout << input[i] << " ";
-//	}
-	
 	int wolf1;
 	int wolf2;
-	
 	int flags[N];
 	int count;	
 	for(wolf1 = 0; wolf1 < N; wolf1++){
 		for(wolf2 = wolf1 + 1; wolf2 < N; wolf2++){
 			count = 0;
 			for(int i = 0; i < N; i++){
-//				cout << "input = " << input[i] << " wolf1 = " << wolf1 << " wolf2 = " << wolf2 << " changeToNum(input[i]) = " << changeToNum(input[i]) << endl;		
 				if(input[i][0] == '-'){
 					if(changeToNum(input[i]) != wolf1 + 1 && changeToNum(input[i]) != wolf2 + 1){
 						count++;
@@ -47,7 +37,6 @@ int main(){
 						flags[i] = 0;
 					}
 				}
-//				cout << "count = " << count << endl;
 			}
 			if(count == 2 && (flags[wolf1] + flags[wolf2] == 1)){
 				printf("%d %d", wolf1 + 1, wolf2 + 1);
@@ -55,9 +44,7 @@ int main(){
 			}
 		}
 	}
-	
 	printf("No Solution");
-	
 	return 0;
 }
 

@@ -10,10 +10,7 @@ string add(string s1, string s2);
 int main(){
 	string input;
 	getline(cin, input);
-	
 	string A = input;
-	
-//	cout << "isPalindromeNum(A) = " << isPalindromeNum(A) << endl;
 	string B;
 	int i = 0;
 	for(; i < 10; i++){
@@ -22,15 +19,12 @@ int main(){
 			break;
 		}
 		B = reverseString(A);
-//		cout << "B = " << B << endl;
-//		cout << "add(A, B) = " << add(A, B) << endl;
 		cout << A << " + " << B << " = " << add(A, B) << endl;
 		A = add(A, B);
 	}
 	if(i == 10){
 		cout << "Not found in 10 iterations." << endl;
 	}
-	
 	return 0;
 }
 

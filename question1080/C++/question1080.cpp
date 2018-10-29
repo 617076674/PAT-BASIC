@@ -62,13 +62,11 @@ int main() {
 		}else{
 			g = gFinal;
 		}
-//		cout << "g = " << g << endl;
 		int trueG = (int) g;
 		if(g - trueG >= 0.5){
 			trueG++;
 		}
 		it->second.g = trueG;
-//		cout << it->first << " " << it->second.gP << " " << it->second.gMidTerm << " " << it->second.gFinal << " " << it->second.g << endl;
 		if(trueG >= 60){
 			results.push_back(make_pair(it->first, it->second));
 		}

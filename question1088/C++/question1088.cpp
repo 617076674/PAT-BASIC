@@ -9,11 +9,9 @@ void compare(int num1, int num2);
 int main() {
 	int M, X, Y;
 	scanf("%d %d %d", &M, &X, &Y);
-
 	int jia;
 	int yi;
 	double bin;
-
 	for(jia = 99; jia >= 10; jia--) {
 		yi = change(jia);
 		bin = abs(jia - yi) * 1.0 / X;
@@ -21,9 +19,6 @@ int main() {
 			break;
 		}
 	}
-	
-//	printf("jia = %d, yi = %d, bin = %lf\n", jia, yi, bin);
-
 	if(jia >= 10) {
 		cout << jia << " ";
 		compare(jia, M);
@@ -40,7 +35,6 @@ int main() {
 	}else{
 		cout << "No Solution" << endl;
 	}
-
 	return 0;
 }
 

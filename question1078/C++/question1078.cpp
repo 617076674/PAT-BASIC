@@ -31,7 +31,6 @@ int main(){
 				count = count * 10 + input2[i] - '0';
 				i++;
 			}
-//			cout << "count = " << count << endl;
 			if(count == 0){
 				cout << input2[i];
 			}else{
