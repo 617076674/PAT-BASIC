@@ -1,52 +1,41 @@
 #include<iostream>
-#include<string>
-#include<math.h>
+#include<cmath>
 
 using namespace std;
+
+int ranks[10000];
 
 bool isPrime(int num);
 
 int main() {
+	fill(ranks, ranks + 10000, 0);
 	int N;
-	cin >> N;
-
-	string prizes[10000];
-	bool flags[10000];
-	for(int i = 0; i < 10000; i++) {
-		flags[i] = false;
+	scanf("%d", &N);
+	int num;
+	for(int i = 1; i <= N; i++) {
+		scanf("%d", &num);
+		ranks[num] = i;
 	}
-	int tempNum;
-
-	for(int i = 0; i < N; i++) {
-		cin >> tempNum;
-		if(i == 0) {
-			prizes[tempNum] = "Mystery Award";
-		} else if(isPrime(i + 1)) {
-			prizes[tempNum] = "Minion";
-		} else {
-			prizes[tempNum] = "Chocolate";
-		}
-	}
-
 	int K;
-	cin >> K;
+	scanf("%d", &K);
 	for(int i = 0; i < K; i++) {
-		cin >> tempNum;
-		if(!flags[tempNum]) {
-			if(prizes[tempNum].length() != 0) {
-				printf("%04d: ", tempNum);
-				cout << prizes[tempNum] << endl;
-				flags[tempNum] = true;
-			} else {
-				printf("%04d: ", tempNum);
-				cout << "Are you kidding?" << endl;
-			}
+		scanf("%d", &num);
+		printf("%04d: ", num);
+		if(ranks[num] == -1){
+			printf("Checked\n");
+		}else if(ranks[num] == 1) {
+			printf("Mystery Award\n");
+			ranks[num] = -1;
+		} else if(ranks[num] == 0) {
+			printf("Are you kidding?\n");
+		} else if(isPrime(ranks[num])) {
+			printf("Minion\n");
+			ranks[num] = -1;
 		} else {
-			printf("%04d: ", tempNum);
-			cout << "Checked" << endl;
+			printf("Chocolate\n");
+			ranks[num] = -1;
 		}
 	}
-
 	return 0;
 }
 

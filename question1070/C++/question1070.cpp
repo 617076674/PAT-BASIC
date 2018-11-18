@@ -5,24 +5,16 @@ using namespace std;
 
 int main(){
 	int N;
-	cin >> N;
-	
-	int lengths[N];
-	int tempLength;
+	scanf("%d", &N);
+	double nums[N];
 	for(int i = 0; i < N; i++){
-		cin >> tempLength;
-		lengths[i] = tempLength;
+		scanf("%lf", &nums[i]);
 	}
-	
-	sort(lengths, lengths + N);
-	
-	double result = (lengths[0] + lengths[1]) / 2.0;
-	for(int i = 2; i < N; i++){
-		result = (result + lengths[i]) / 2;
+	sort(nums, nums + N);
+	double result = nums[0];
+	for(int i = 1; i < N; i++){
+		result = (result + nums[i]) / 2;
 	}
-	
-	cout << (int)result << endl;
-	
-	return 0;
+	printf("%d\n", (int)result);
+	return 0; 
 }
-

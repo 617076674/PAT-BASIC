@@ -5,41 +5,36 @@
 
 using namespace std;
 
-int main() {
+int main(){
 	int M, N, S;
-	cin >> M >> N >> S;
-	getchar();
-	vector<string> winners;
-
-	string tempName;
-	string totalNames[M];
-	for(int i = 0; i < M; i++) {
-		getline(cin, tempName);
-		totalNames[i] = tempName;
-	}
-
-	if(S - 1 >= M) {
+	scanf("%d %d %d", &M, &N, &S);
+	if(M < S){
 		cout << "Keep going..." << endl;
 		return 0;
 	}
-	int i = S - 1;
-	while(i < M) {
-		while(find(winners.begin(), winners.end(), totalNames[i]) != winners.end()) {
-			i++;
-			if(i >= M) {
-				break;
+	vector<string> winners;
+	int pre = M;
+	string name;
+	for(int i = 1; i <= M; i++){
+		cin >> name;
+		if(i == S){
+			winners.push_back(name);
+			pre = S;
+			continue;
+		}
+		if(i - pre == N){
+			while(i <= M && find(winners.begin(), winners.end(), name) != winners.end()){
+				cin >> name;
+				i++;
+			}
+			if(i <= M){
+				winners.push_back(name);
+				pre = i;
 			}
 		}
-		if(i < M) {
-			winners.push_back(totalNames[i]);
-		}
-		i += N;
 	}
-
-	for(int i = 0; i < winners.size(); i++) {
+	for(int i = 0; i < winners.size(); i++){
 		cout << winners[i] << endl;
 	}
-
-
 	return 0;
-}
+} 

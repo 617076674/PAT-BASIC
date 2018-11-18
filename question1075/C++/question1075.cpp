@@ -3,56 +3,54 @@
 
 using namespace std;
 
+struct node{
+	int address;
+	int data;
+	int next;
+};
+
+node Node[100000];
+
 int main(){
-	int firstAddress, N, K;
-	cin >> firstAddress >> N >> K;
-	
-	int addresses[100000];
-	int datas[100000];
-	
-	int tempAddress;
-	int tempData;
-	int tempNext;
-	
+	int first, N, K;
+	scanf("%d %d %d", &first, &N, &K);
+	int address, data, next;
 	for(int i = 0; i < N; i++){
-		cin >> tempAddress >> tempData >> tempNext;
-		addresses[tempAddress] = tempNext;
-		datas[tempAddress] = tempData;
+		scanf("%d %d %d", &address, &data, &next);
+		Node[address].address = address;
+		Node[address].data = data;
+		Node[address].next = next;
 	}
-	
-	vector<int> afterSort1;
-	vector<int> afterSort2;
-	vector<int> afterSort3;
-	int curAddress = firstAddress;
-	while(curAddress != -1){
-		if(datas[curAddress] < 0){
-			afterSort1.push_back(curAddress);
-		}else if(datas[curAddress] >= 0 && datas[curAddress] <= K){
-			afterSort2.push_back(curAddress);
+	int temp = first;
+	vector<node> part1;
+	vector<node> part2;
+	vector<node> part3;
+	while(temp != -1){
+		if(Node[temp].data < 0){
+			part1.push_back(Node[temp]);
+		}else if(Node[temp].data > K){
+			part3.push_back(Node[temp]);
 		}else{
-			afterSort3.push_back(curAddress);
+			part2.push_back(Node[temp]);
 		}
-		curAddress = addresses[curAddress];
+		temp = Node[temp].next;
 	}
-	vector<int> afterSort;
-	for(int i = 0; i < afterSort1.size(); i++){
-		afterSort.push_back(afterSort1[i]);
+	vector<node> part;
+	for(int i = 0; i < part1.size(); i++){
+		part.push_back(part1[i]);
 	}
-	for(int i = 0; i < afterSort2.size(); i++){
-		afterSort.push_back(afterSort2[i]);
+	for(int i = 0; i < part2.size(); i++){
+		part.push_back(part2[i]);
 	}
-	for(int i = 0; i < afterSort3.size(); i++){
-		afterSort.push_back(afterSort3[i]);
+	for(int i = 0; i < part3.size(); i++){
+		part.push_back(part3[i]);
 	}
-	
-	for(int i = 0; i < afterSort.size(); i++){
-		if(i != afterSort.size() - 1){
-			printf("%05d %d %05d\n", afterSort[i], datas[afterSort[i]], afterSort[i + 1]);
+	for(int i = 0; i < part.size(); i++){
+		if(i != part.size() - 1){
+			printf("%05d %d %05d\n", part[i].address, part[i].data, part[i + 1].address);
 		}else{
-			printf("%05d %d -1\n", afterSort[i], datas[afterSort[i]]);	
+			printf("%05d %d -1\n", part[i].address, part[i].data);
 		}
 	}
-	
 	return 0;
-	
 }

@@ -1,5 +1,6 @@
 #include<iostream>
 #include<string>
+#include<algorithm>
 
 using namespace std;
 
@@ -95,7 +96,6 @@ string add(string s1, string s2){
 		}
 		index++;
 	}
-	
 	return result;
 }
 
