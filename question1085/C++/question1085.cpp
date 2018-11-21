@@ -1,124 +1,92 @@
 #include<iostream>
+#include<map>
 #include<string>
 #include<vector>
-#include<map>
-#include<utility>
 #include<algorithm>
 
 using namespace std;
 
-struct student{
-	string studentNumber;
-	int studentScore;
-	string schoolName;
-};
-
 struct school{
-	double schoolScore;
-	int quantity;
+	int rank;
+	string name;
+	int score[3];	//score[0]代表scoreB, score[1]代表score[A], score[2]代表score[T]
+	int TWS;
+	int Ns; 
 };
 
-bool compare(pair<string, school> pair1, pair<string, school> pair2);
-string toLower(string s);
+map<string, school> schoolMap;
+
+bool cmp(school s1, school s2);
 
 int main(){
 	int N;
-	cin >> N;
-	
-	student tempStudent;
-	string tempStudentNumber;
-	int tempStudentScore;
-	string tempSchoolName;
-	
-	vector<student> students;
+	scanf("%d", &N);
+	string ID, schoolName;
+	int score;
 	for(int i = 0; i < N; i++){
-		cin >> tempStudentNumber >> tempStudentScore >> tempSchoolName;
-		tempStudent.studentNumber = tempStudentNumber;
-		tempStudent.studentScore = tempStudentScore;
-		tempSchoolName = toLower(tempSchoolName);
-		tempStudent.schoolName = tempSchoolName;
-		students.push_back(tempStudent);
-	}
-	
-	map<string, school> schoolMap;
-	map<string, school>::iterator it;
-	
-	for(int i = 0; i < students.size(); i++){
-		it = schoolMap.find(students[i].schoolName);
-		if(it != schoolMap.end()){
-			it->second.quantity++;
-			if(students[i].studentNumber[0] == 'B'){
-				it->second.schoolScore += 1.0 * students[i].studentScore / 1.5;
-			}else if(students[i].studentNumber[0] == 'A'){
-				it->second.schoolScore += 1.0 * students[i].studentScore;
-			}else if(students[i].studentNumber[0] == 'T'){
-				it->second.schoolScore += 1.5 * students[i].studentScore;
+		cin >> ID >> score >> schoolName;
+		for(int i = 0; i < schoolName.length(); i++){
+			if(schoolName[i] >= 'A' && schoolName[i] <= 'Z'){
+				schoolName[i] = schoolName[i] - 'A' + 'a';
 			}
-		}else{
+		}
+		if(schoolMap.find(schoolName) == schoolMap.end()){
 			school tempSchool;
-			tempSchool.quantity = 1;
-			if(students[i].studentNumber[0] == 'B'){
-				tempSchool.schoolScore = 1.0 * students[i].studentScore / 1.5;
-			}else if(students[i].studentNumber[0] == 'A'){
-				tempSchool.schoolScore = 1.0 * students[i].studentScore;
-			}else if(students[i].studentNumber[0] == 'T'){
-				tempSchool.schoolScore = 1.5 * students[i].studentScore;
+			tempSchool.name = schoolName;
+			if(ID[0] == 'B'){
+				tempSchool.score[0] = score;
+				tempSchool.score[1] = 0;
+				tempSchool.score[2] = 0;
+			}else if(ID[0] == 'A'){
+				tempSchool.score[1] = score;
+				tempSchool.score[0] = 0;
+				tempSchool.score[2] = 0;
+			}else{
+				tempSchool.score[2] = score;
+				tempSchool.score[0] = 0;
+				tempSchool.score[1] = 0;
 			}
-			schoolMap[students[i].schoolName] = tempSchool;
+			tempSchool.Ns = 1;
+			schoolMap[schoolName] = tempSchool;
+		}else{
+			if(ID[0] == 'B'){
+				schoolMap[schoolName].score[0] += score;
+			}else if(ID[0] == 'A'){
+				schoolMap[schoolName].score[1] += score;
+			}else{
+				schoolMap[schoolName].score[2] += score;
+			}
+			schoolMap[schoolName].Ns++;
 		}
 	}
-	
-	vector<pair<string, school> > results;
-	for(it = schoolMap.begin(); it != schoolMap.end(); it++){
-		results.push_back(make_pair(it->first, it->second));
+	vector<school> schools;
+	for(map<string, school>::iterator it = schoolMap.begin(); it != schoolMap.end(); it++){
+		it->second.TWS = it->second.score[0] * 1.0 / 1.5 + it->second.score[1] + it->second.score[2] * 1.5;
+		schools.push_back(it->second);
 	}
-	
-	sort(results.begin(), results.end(), compare);
-	
-	cout << results.size() << endl;
-	int index = 1;
-	for(int i = 0; i < results.size(); i++){
-		if(i > 0 && (int)results[i].second.schoolScore != (int)results[i - 1].second.schoolScore){
-			index = i + 1;
-		}		
-		cout << index << " " << results[i].first << " " << (int)results[i].second.schoolScore << " " << results[i].second.quantity << endl;
+	sort(schools.begin(), schools.end(), cmp);
+	schools[0].rank = 1;
+	for(int i = 1; i < schools.size(); i++){
+		if(schools[i].TWS == schools[i - 1].TWS){
+			schools[i].rank = schools[i - 1].rank;
+		}else{
+			schools[i].rank = i + 1;
+		}
 	}
-	
+	cout << schools.size() << endl;
+	for(int i = 0; i < schools.size(); i++){
+		cout << schools[i].rank << " " << schools[i].name << " " << schools[i].TWS << " " << schools[i].Ns << endl;
+	}
 }
 
-bool compare(pair<string, school> pair1, pair<string, school> pair2){
-	if((int)pair1.second.schoolScore == (int)pair2.second.schoolScore){
-		if(pair1.second.quantity == pair2.second.quantity){
-			if(pair1.first.compare(pair2.first) >= 0){
-				return false;
-			}else{
-				return true;
-			}
+bool cmp(school s1, school s2){
+	if(s1.TWS == s2.TWS){
+		if(s1.Ns == s2.Ns){
+			return s1.name < s2.name;
 		}else{
-			if(pair1.second.quantity >= pair2.second.quantity){
-				return false;
-			}else{
-				return true;
-			}
+			return s1.Ns < s2.Ns;
 		}
 	}else{
-		if((int)pair1.second.schoolScore >= (int)pair2.second.schoolScore){
-			return true;
-		}else{
-			return false;
-		}
+		return s1.TWS > s2.TWS;
 	}
 }
-
-string toLower(string s){
-	string result = "";
-	for(int i = 0; i < s.length(); i++){
-		if(s[i] >= 'A' && s[i] <= 'Z'){
-			result += s[i] - 'A' + 'a';
-		}else{
-			result += s[i];
-		}
-	}
-	return result;
-}
-
