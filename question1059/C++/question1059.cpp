@@ -4,11 +4,15 @@
 using namespace std;
 
 int ranks[10000];
+bool flag[10001];
 
 bool isPrime(int num);
+void findPrime();
 
 int main() {
 	fill(ranks, ranks + 10000, 0);
+	fill(flag, flag + 10001, true);
+	findPrime(); 
 	int N;
 	scanf("%d", &N);
 	int num;
@@ -40,13 +44,25 @@ int main() {
 }
 
 bool isPrime(int num) {
-	if(num == 1) {
-		return false;
-	}
-	for(int i = 2; i <= sqrt(num); i++) {
-		if(num % i == 0) {
-			return false;
+//	if(num == 1) {
+//		return false;
+//	}
+//	for(int i = 2; i <= sqrt(num); i++) {
+//		if(num % i == 0) {
+//			return false;
+//		}
+//	}
+	return flag[num];
+}
+
+void findPrime(){
+	flag[1] = false;
+	flag[2] = false;
+	for(int i = 2; i < 10001; i++){
+		if(!flag[i]){
+			for(int j = i + 1; j < 10001; j += i){
+				flag[j] = false;
+			}
 		}
 	}
-	return true;
 }
