@@ -2,7 +2,7 @@ My PAT-BASIC Repository
 
 These problems are mainly solved by C++. I will add Java solutions in the future.
 
-If you find any problems in my codes or have more solutions about the questions in LeetCode, please contact me by email.
+If you find any problems in my codes or have more solutions about the questions in PAT-BASIC, please contact me by email.
 
 My Email Address: 617076674@qq.com
 
